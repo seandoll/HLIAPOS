@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+    <title>request</title>
+</head>
+<style>
+
+    .barUniform {
+        fill: steelblue;
+        stroke: white;
+        opacity: .6;
+    }
+
+    .barBinomial {
+        fill: teal;
+        stroke: white;
+        opacity: .6;
+    }
+
+    .bar text {
+        font: 10px sans-serif;
+        fill: white;
+    }
+
+    .barUniform:hover {
+        fill: magenta;
+        opacity: .6;
+    }
+
+    .barBinomial:hover {
+        fill: yellow;
+        opacity: .6;
+    }
+
+    .axis {
+        font: 10px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+        display: none;
+    }
+
+</style>
+<body>
+<!--<form action="http://127.0.0.1:5000/measurement" method="post">-->
+    <!--Measurement:<br>-->
+    <!--<input type="text" name="newMeasurement"><br>-->
+    <!--<input type="submit" value="Submit">-->
+<!--</form>-->
+<script src="d3.min.js"></script>
+<script>
+
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+    var xScale = d3.scale.linear()
+            .range([0, width]);
+
+    var yScale = d3.scale.linear()
+            .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+            .ticks(10, "%");
+
+    var svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//    d3.tsv("TestDataScenario.tsv", type, function (error, data) {
+    d3.tsv("app/TestDataScenario.tsv", type, function (error, data) {
+        if (error) throw error;
+        console.log(data[0]);
+        console.log(data[0]["measurement"]);
+        console.log(data[0]["binomial_frequency"]);
+        console.log(data);
+
+        xScale.domain([0, d3.max(data, function (d) {
+            return d.measurement;
+        })]);
+        yScale.domain([0, d3.max(data, function (d) {
+            return d.binomial_frequency;
+        })]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Frequency");
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("class", "barUniform")
+                .attr("x", function (d) {
+                    return xScale(d.measurement);
+                })
+                .attr("width", function (d) {
+                    return xScale(d.width);
+                })
+                .attr("y", function (d) {
+                    return yScale(d.uniform_frequency);
+                })
+                .attr("height", function (d) {
+                    return height - yScale(d.uniform_frequency);
+                })
+                .append("text")
+                .attr("x", function (d) {
+                    return xScale(d.measurement) + xScale(d.width / 2);
+                })
+                .attr("y", function (d) {
+                    return yScale(d.uniform_frequency) + 6;
+                })
+                .attr("dy", "0.35em")
+                .text(function (d) {
+                    return d.uniform_frequency;
+                });
+
+        svg.selectAll(".bar")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("class", "barBinomial")
+                .attr("x", function (d) {
+                    return xScale(d.measurement);
+                })
+                .attr("width", function (d) {
+                    return xScale(d.width);
+                })
+                .attr("y", function (d) {
+                    return yScale(d.binomial_frequency);
+                })
+                .attr("height", function (d) {
+                    return height - yScale(d.binomial_frequency);
+                })
+                .append("text")
+                .attr("x", function (d) {
+                    return xScale(d.measurement) + xScale(d.width / 2);
+                })
+                .attr("y", function (d) {
+                    return yScale(d.binomial_frequency) + 6;
+                })
+                .attr("dy", "0.35em")
+                .text(function (d) {
+                    return d.binomial_frequency;
+                });
+    });
+
+    function type(d) {
+        d.uniform_frequency = +d.uniform_frequency;
+        d.binomial_frequency = +d.binomial_frequency;
+        d.measurement = +d.measurement;
+        return d;
+    }
+
+</script>
+</body>
+</html>
