@@ -11,7 +11,7 @@ class ScenarioDisplayTest(unittest.TestCase):
         scenario.case_name = "Example session title"
         self.assertEqual(scenario.case_name, "Example session title")
         display = ScenarioDisplayConsole
-        display.show(scenario)
+        display.display(scenario)
 
     @staticmethod
     def test_set_confidence_interval():
@@ -24,7 +24,7 @@ class ScenarioDisplayTest(unittest.TestCase):
         scenario.case_name = "Single item"
         scenario.confidence_interval = 0.5
         scenario.add_item(17)
-        ScenarioDisplayConsole.show(scenario)
+        ScenarioDisplayConsole.display(scenario)
 
     @staticmethod
     def test_show_rule_of_five_binomial_distribution():
@@ -40,7 +40,7 @@ class ScenarioDisplayTest(unittest.TestCase):
         scenario.add_item(45)
         scenario.add_item(12)
         # display = ScenarioDisplay_Console
-        ScenarioDisplayConsole.show(scenario)
+        ScenarioDisplayConsole.display(scenario)
 
     @staticmethod
     def test_show_two_items_linear_distribution():
@@ -52,7 +52,7 @@ class ScenarioDisplayTest(unittest.TestCase):
         scenario.clear_list()
         scenario.add_item(17)
         scenario.add_item(25)
-        ScenarioDisplayConsole.show(scenario)
+        ScenarioDisplayConsole.display(scenario)
 
 if __name__ == '__main__':
     unittest.main()

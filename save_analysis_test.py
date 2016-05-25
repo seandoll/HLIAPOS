@@ -28,28 +28,28 @@ class SaveAnalysisText(unittest.TestCase):
         scenario.case_name = "Uniform Extremity"
         scenario.distribution_profile = UniformDistribution
         scenario.distribution_bounding = Extremity
-        ScenarioDisplayConsole.show(scenario)
+        ScenarioDisplayConsole.display(scenario)
 
     @staticmethod
     def __show_bounding_for_uniform_bounded_scenario(scenario):
         scenario.case_name = "Uniform Bounded"
         scenario.distribution_profile = UniformDistribution
         scenario.distribution_bounding = Bounded
-        ScenarioDisplayConsole.show(scenario)
+        ScenarioDisplayConsole.display(scenario)
 
     @staticmethod
     def __show_bounding_for_binomial_extremity_scenario(scenario):
         scenario.case_name = "Binomial Extremity"
         scenario.distribution_profile = BinomialDistribution
         scenario.distribution_bounding = Extremity
-        ScenarioDisplayConsole.show(scenario)
+        ScenarioDisplayConsole.display(scenario)
 
     @staticmethod
     def __show_bounding_for_binomial_bounded_scenario(scenario):
         scenario.case_name = "Binomial Bounded"
         scenario.distribution_profile = BinomialDistribution
         scenario.distribution_bounding = Bounded
-        ScenarioDisplayConsole.show(scenario)
+        ScenarioDisplayConsole.display(scenario)
 
     @staticmethod
     def __load_chart_page():
