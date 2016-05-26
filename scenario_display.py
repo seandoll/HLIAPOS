@@ -114,7 +114,7 @@ class ScenarioDisplayConsole:
 
     @classmethod
     def __count_in_possible(cls, scenario):
-        if len(scenario.data_list()) == 0 or cls.__count_in(scenario) == 0:
+        if len(scenario.data_list()) == 0 or cls.__count_in(scenario) == 0 or cls.__count_in(scenario) is None:
             return False
 
         return True
