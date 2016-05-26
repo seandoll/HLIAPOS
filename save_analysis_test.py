@@ -21,7 +21,6 @@ class SaveAnalysisText(unittest.TestCase):
     def __add_items(scenario):
         scenario.confidence_interval = 0.90
         scenario.add_item(636)
-        scenario.add_item(736)
 
     @staticmethod
     def __show_bounding_for_uniform_extremity_scenario(scenario):
@@ -55,7 +54,7 @@ class SaveAnalysisText(unittest.TestCase):
     def __load_chart_page():
         new_tab = 0
         chrome_path = 'open -a /Applications/Google\ Chrome.app %s'
-        webbrowser.get(chrome_path).open("http://localhost:63342/simpleAnalysis/BinomialAndUniformDistribution.html",
+        webbrowser.get(chrome_path).open("http://localhost:63342/HLIAPOS/BinomialAndUniformDistribution.html",
                                          new=new_tab)
 
     def __show_boundings_for_scenario(self, scenario):

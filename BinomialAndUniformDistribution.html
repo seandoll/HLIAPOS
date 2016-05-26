@@ -83,8 +83,7 @@
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-//    d3.tsv("TestDataScenario.tsv", type, function (error, data) {
-    d3.tsv("app/TestDataScenario.tsv", type, function (error, data) {
+    d3.tsv("TestDataScenario.tsv", type, function (error, data) {
         if (error) throw error;
         console.log(data[0]);
         console.log(data[0]["measurement"]);
