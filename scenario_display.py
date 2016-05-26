@@ -32,7 +32,11 @@ class ScenarioDisplayConsole:
     @classmethod
     def __count_in(cls, scenario):
         dist = Distribution.percentage_distribution(scenario.distribution_profile, len(scenario.data_list()))
-        return distribution.count_ins(scenario.distribution_bounding, dist, scenario.confidence_interval)
+        count_in = distribution.count_ins(scenario.distribution_bounding, dist, scenario.confidence_interval)
+        if count_in is None:
+            return 0
+        else:
+            return count_in
 
     @classmethod
     def __print_heading(cls, scenario):
@@ -114,7 +118,7 @@ class ScenarioDisplayConsole:
 
     @classmethod
     def __count_in_possible(cls, scenario):
-        if len(scenario.data_list()) == 0 or cls.__count_in(scenario) == 0 or cls.__count_in(scenario) is None:
+        if len(scenario.data_list()) == 0 or cls.__count_in(scenario) == 0:
             return False
 
         return True
