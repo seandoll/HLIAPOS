@@ -18,11 +18,6 @@ class SaveAnalysisText(unittest.TestCase):
         self.__load_chart_page()
 
     @staticmethod
-    def __add_items(scenario):
-        scenario.confidence_interval = 0.90
-        scenario.add_item(636)
-
-    @staticmethod
     def __show_bounding_for_uniform_extremity_scenario(scenario):
         scenario.case_name = "Uniform Extremity"
         scenario.distribution_profile = UniformDistribution
@@ -66,6 +61,33 @@ class SaveAnalysisText(unittest.TestCase):
         print(Distribution.percentage_distribution(BinomialDistribution, len(scenario.dataList)))
         self.__show_bounding_for_binomial_bounded_scenario(scenario)
         self.__show_bounding_for_binomial_extremity_scenario(scenario)
+
+    @staticmethod
+    def __add_items(scenario):
+        scenario.confidence_interval = 0.90
+        scenario.add_item(508)
+        scenario.add_item(170)
+        scenario.add_item(8)
+        scenario.add_item(186)
+        scenario.add_item(1320)
+        scenario.add_item(365)
+        scenario.add_item(187)
+        scenario.add_item(2280)
+        scenario.add_item(74)
+        scenario.add_item(350)
+        scenario.add_item(130)
+        scenario.add_item(1155)
+        scenario.add_item(480)
+        scenario.add_item(30)
+        scenario.add_item(420)
+        scenario.add_item(592)
+        scenario.add_item(380)
+        scenario.add_item(460)
+        scenario.add_item(83)
+        scenario.add_item(110)
+        # 21st measurement
+        scenario.add_item(327)
+
 
 
 if __name__ == '__main__':
