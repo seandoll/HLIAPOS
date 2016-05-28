@@ -60,7 +60,7 @@ class ScenarioDisplayConsole:
         title += cls.__title_distribution(scenario.distribution_profile)
         title += cls.__title_measurements(scenario)
         title += cls.__title_sum_of_measurements(scenario)
-        title += cls.__title_bounding(scenario.distribution_bounding)
+        # title += cls.__title_bounding(scenario.distribution_bounding)
         return title
 
     @classmethod
@@ -70,51 +70,60 @@ class ScenarioDisplayConsole:
 
     @classmethod
     def __title_confidence_interval(cls, confidence_interval):
-        return ": CI = " + str(confidence_interval)
+        return cls.value_separator() + "CI = " + str(confidence_interval)
 
     @classmethod
     def __title_distribution(cls, distribution_profile):
-        return ": Dist = " + distribution_profile.distribution_name()
+        return cls.value_separator() + "Dist = " + distribution_profile.distribution_name()
 
     @classmethod
     def __title_bounding(cls, bounding):
-        return ": Bounding = " + bounding.bounding_name()
+        return cls.value_separator() + "Bounding = " + bounding.bounding_name()
 
     @classmethod
     def __title_measurements(cls, scenario):
-        return ": Measurements = " + str(len(scenario.data_list()))
+        return cls.value_separator() + "Measurements = " + str(len(scenario.data_list()))
 
     @classmethod
     def __title_sum_of_measurements(cls, scenario):
-        return ": Sum = " + str(sum(scenario.data_list()))
+        return cls.value_separator() + "Sum = " + str(sum(scenario.data_list()))
+
+    @classmethod
+    def value_separator(cls):
+        return " :: "
 
     @classmethod
     def __title_forecast(cls, scenario, target_measurements):
-        forecast = cls.__lower_bound_forecast(scenario, target_measurements)
+        forecast = cls.count_in_display_text(scenario)
+        forecast += cls.__lower_bound_forecast(scenario, target_measurements)
         forecast += cls.__upper_bound_forecast(scenario, target_measurements)
         return forecast
 
     @classmethod
+    def count_in_display_text(cls, scenario):
+        return "Count Ins: " + str(cls.__count_in(scenario))
+
+    @classmethod
     def __lower_bound_forecast(cls, scenario, target_measurements):
-        forecast = "Lower bound forecast: "
+        forecast = cls.value_separator() + "Lower bound forecast: "
         if cls.__count_in_possible(scenario):
             count_in = cls.__count_in(scenario)
             forecast += str(scenario.sortedDataList[count_in - 1] * target_measurements)
         else:
             forecast += "Not possible"
 
-        return forecast + "\t"
+        return forecast
 
     @classmethod
     def __upper_bound_forecast(cls, scenario, target_measurements):
-        forecast = "Upper bound forecast: "
+        forecast = cls.value_separator() + "Upper bound forecast: "
         if cls.__count_in_possible(scenario):
             count_in = cls.__count_in(scenario)
             forecast += str(scenario.sortedDataList[len(scenario.data_list()) - count_in] * target_measurements)
         else:
             forecast += "Not possible"
 
-        return forecast + "\t"
+        return forecast
 
     @classmethod
     def __count_in_possible(cls, scenario):
