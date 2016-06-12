@@ -6,21 +6,21 @@ from bounding import Bounded, Extremity
 class BinomialExpansionNumberOfPossibleValuesTests(unittest.TestCase):
     def test_empty_binary_string(self):
         exp = BinomialDistribution
-        number_of_possible_values = exp.number_possible_values(0)
+        number_of_possible_values = exp.number_of_possible_values(0)
         self.assertEqual(number_of_possible_values, 0)
 
     def test_single_character_binary_string(self):
         exp = BinomialDistribution
-        number_of_possible_values = exp.number_possible_values(1)
+        number_of_possible_values = exp.number_of_possible_values(1)
         self.assertEqual(number_of_possible_values, 2)
 
     def test_multiple_character_binary_string(self):
         exp = BinomialDistribution
-        number_of_possible_values = exp.number_possible_values(2)
+        number_of_possible_values = exp.number_of_possible_values(2)
         self.assertEqual(number_of_possible_values, 4)
-        number_of_possible_values = exp.number_possible_values(4)
+        number_of_possible_values = exp.number_of_possible_values(4)
         self.assertEqual(number_of_possible_values, 16)
-        number_of_possible_values = exp.number_possible_values(8)
+        number_of_possible_values = exp.number_of_possible_values(8)
         self.assertEqual(number_of_possible_values, 256)
 
 

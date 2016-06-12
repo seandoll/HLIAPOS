@@ -1,4 +1,5 @@
 import math
+from abc import ABCMeta, abstractmethod
 
 
 class Distribution:
@@ -27,12 +28,36 @@ class Distribution:
             print(str(x) + " band is " + str(dist[x] * 100) + "% likely")
 
 
-class BinomialDistribution:
+class DistributionAble:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def number_of_possible_values(self, trials):
+        raise NotImplementedError()
+
+    @abstractmethod
+    def frequency_distribution(self, trials):
+        raise NotImplementedError()
+
+    @abstractmethod
+    def percentage_distribution(self, trials):
+        raise NotImplementedError()
+
+    @abstractmethod
+    def count_ins(self, count_in_instance, distribution, confidence_interval):
+        raise NotImplementedError()
+
+    @abstractmethod
+    def distribution_name(self):
+        raise NotImplementedError()
+
+
+class BinomialDistribution(DistributionAble):
     def __init__(self):
         pass
 
     @classmethod
-    def number_possible_values(cls, trials):
+    def number_of_possible_values(cls, trials):
         if trials == 0:
             return 0
         else:
@@ -50,7 +75,7 @@ class BinomialDistribution:
     def percentage_distribution(cls, trials):
         dist = cls.frequency_distribution(trials)
         percent = list()
-        possible_values = cls.number_possible_values(trials)
+        possible_values = cls.number_of_possible_values(trials)
 
         for x in range(trials + 1):
             percent.append(1.0 * dist[x] / possible_values)
@@ -66,12 +91,12 @@ class BinomialDistribution:
         return "Binomial"
 
 
-class UniformDistribution:
+class UniformDistribution(DistributionAble):
     def __init__(self):
         pass
 
     @classmethod
-    def number_possible_values(cls, trials):
+    def number_of_possible_values(cls, trials):
         if trials == 0:
             return 0
         else:
@@ -83,7 +108,7 @@ class UniformDistribution:
 
     @classmethod
     def percentage_distribution(cls, trials):
-        possible_values = cls.number_possible_values(trials)
+        possible_values = cls.number_of_possible_values(trials)
         return [1.0 / possible_values] * (trials + 1)
 
     @classmethod
@@ -93,3 +118,6 @@ class UniformDistribution:
     @classmethod
     def distribution_name(cls):
         return "Uniform"
+
+
+
