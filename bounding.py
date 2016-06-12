@@ -31,7 +31,10 @@ class Bounded:
 
     @classmethod
     def count_in_possible(cls, confidence_interval, distribution):
-        return (len(distribution) > 0) & (1.0 - confidence_interval >= 2 * distribution[0])
+        if distribution is None:
+            return False
+        else:
+            return (len(distribution) > 0) & (1.0 - confidence_interval >= 2 * distribution[0])
 
     @classmethod
     def bounding_name(cls):
